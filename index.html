@@ -1,0 +1,1490 @@
+<!DOCTYPE html>
+<html lang="zh-TW" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2026 九州自駕旅圖文攻略 V10｜11/21 高千穗散策修正版</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Noto Sans TC"', 'Inter', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#f0fdf4',
+              100: '#dcfce7',
+              500: '#22c55e',
+              600: '#16a34a',
+              700: '#15803d',
+              800: '#166534',
+              900: '#14532d',
+            },
+            amber: {
+              500: '#f59e0b',
+              600: '#d97706',
+            },
+            japan: {
+              dark: '#1e293b',
+              red: '#be123c',
+              indigo: '#1e3a8a',
+              slate: '#334155'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Custom scrollbars */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+    .badge-drive {
+      background-color: #fef3c7;
+      color: #92400e;
+      border: 1px solid #fde68a;
+    }
+    .badge-transit {
+      background-color: #e0e7ff;
+      color: #3730a3;
+      border: 1px solid #c7d2fe;
+    }
+    .badge-hard {
+      background-color: #ffe4e6;
+      color: #9f1239;
+      border: 1px solid #fecdd3;
+    }
+    .day-photo {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+    }
+    .download-chip {
+      background: rgba(255,255,255,.1);
+      border: 1px solid rgba(255,255,255,.18);
+      transition: transform .2s ease, background-color .2s ease;
+    }
+    .download-chip:hover {
+      background: rgba(255,255,255,.18);
+      transform: translateY(-1px);
+    }
+    @media (max-width: 640px) {
+      .day-photo { height: 170px; }
+    }
+    @media print {
+      header, .mobile-nav-btn, #quick-day-jumper, .filter-btn, #global-search,
+      .download-actions, button { display: none !important; }
+      body { background: white !important; padding: 0 !important; }
+      main { max-width: none !important; padding: 0 !important; }
+      .timeline-card { break-inside: avoid; box-shadow: none !important; }
+      .tab-content.hidden { display: none !important; }
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased font-sans min-h-screen flex flex-col pb-16">
+
+  <!-- 頂部導航列 -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm transition-all">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <!-- Logo / 標題 -->
+        <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('timeline')">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-700 to-emerald-500 flex items-center justify-center text-white shadow-md shadow-brand-500/20">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+            </svg>
+          </div>
+          <div>
+            <div class="flex items-center space-x-2">
+              <span class="text-xs font-bold px-2 py-0.5 rounded bg-brand-100 text-brand-800 border border-brand-200">V10・11/21 修正</span>
+              <span class="text-xs text-slate-500 hidden sm:inline">2026/11/10 – 12/01</span>
+            </div>
+            <h1 class="text-base sm:text-lg font-bold text-slate-900 leading-tight">2026 九州自駕旅圖文攻略</h1>
+          </div>
+        </div>
+
+        <!-- 導航分頁籤 -->
+        <nav class="hidden md:flex items-center space-x-1" id="main-nav">
+          <button onclick="switchTab('timeline')" class="nav-tab px-3.5 py-2 rounded-lg text-sm font-semibold transition text-brand-700 bg-brand-50" data-tab="timeline">
+            📅 每日行程
+          </button>
+          <button onclick="switchTab('milestones')" class="nav-tab px-3.5 py-2 rounded-lg text-sm font-medium transition text-slate-600 hover:text-slate-900 hover:bg-slate-100" data-tab="milestones">
+            ⏰ 硬時程與預約
+          </button>
+          <button onclick="switchTab('hotels')" class="nav-tab px-3.5 py-2 rounded-lg text-sm font-medium transition text-slate-600 hover:text-slate-900 hover:bg-slate-100" data-tab="hotels">
+            🏨 住宿核對 (13)
+          </button>
+          <button onclick="switchTab('guide')" class="nav-tab px-3.5 py-2 rounded-lg text-sm font-medium transition text-slate-600 hover:text-slate-900 hover:bg-slate-100" data-tab="guide">
+            💡 避坑與錦囊
+          </button>
+        </nav>
+
+        <!-- 搜尋與快速工具 -->
+        <div class="flex items-center space-x-2">
+          <div class="relative w-36 sm:w-56">
+            <input type="text" id="global-search" oninput="handleSearch(this.value)" placeholder="搜尋行程、地點、飯店..." 
+              class="w-full text-xs sm:text-sm pl-8 pr-3 py-1.5 bg-slate-100 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-500 focus:bg-white transition">
+            <svg class="w-4 h-4 text-slate-400 absolute left-2.5 top-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+          </div>
+          <button onclick="window.print()" class="hidden sm:inline-flex items-center px-3 py-1.5 text-xs font-semibold text-slate-600 bg-white border border-slate-200 rounded-lg hover:bg-slate-50 transition" title="列印或另存 PDF">
+            列印
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 行動端底部固定分頁籤 -->
+    <div class="md:hidden flex border-t border-slate-200 bg-white fixed bottom-0 left-0 right-0 z-50 px-2 py-1.5 shadow-lg justify-around">
+      <button onclick="switchTab('timeline')" class="mobile-nav-btn flex flex-col items-center p-1 text-brand-700" data-tab="timeline">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+        <span class="text-[10px] font-medium mt-0.5">每日行程</span>
+      </button>
+      <button onclick="switchTab('milestones')" class="mobile-nav-btn flex flex-col items-center p-1 text-slate-500" data-tab="milestones">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        <span class="text-[10px] font-medium mt-0.5">硬時程</span>
+      </button>
+      <button onclick="switchTab('hotels')" class="mobile-nav-btn flex flex-col items-center p-1 text-slate-500" data-tab="hotels">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+        <span class="text-[10px] font-medium mt-0.5">住宿清單</span>
+      </button>
+      <button onclick="switchTab('guide')" class="mobile-nav-btn flex flex-col items-center p-1 text-slate-500" data-tab="guide">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        <span class="text-[10px] font-medium mt-0.5">錦囊決策</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- 主內容容器 -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 w-full flex-grow">
+
+    <!-- 頂部重點狀態看板 (Hero Banner) -->
+    <div class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 rounded-2xl text-white p-5 sm:p-7 shadow-xl mb-8 relative overflow-hidden border border-slate-800">
+      <div class="relative z-10 max-w-4xl">
+        <div class="inline-flex items-center space-x-2 bg-brand-500/20 text-brand-300 text-xs font-semibold px-3 py-1 rounded-full border border-brand-500/30 mb-3">
+          <span class="w-2 h-2 rounded-full bg-brand-400 animate-pulse"></span>
+          <span>V10 網頁底稿｜本次僅更新 11/21 高千穗行程</span>
+        </div>
+        <h2 class="text-xl sm:text-3xl font-extrabold tracking-tight mb-2">2026 九州 22 天自駕漫旅攻略</h2>
+        <p class="text-slate-300 text-xs sm:text-sm leading-relaxed mb-4">
+          11/10 熊本進場 ➔ 11/12–11/25 福岡租車（14天同點取還）➔ 門司港・別府・由布院・黑川日歸・高千穗・阿蘇・秋月 ➔ 11/25–11/30 福岡慢遊＋YOASOBI演唱會 ➔ 12/1 熊本返台南。
+        </p>
+        
+        <!-- 核心亮點指標 -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center pt-2 border-t border-slate-800/80">
+          <div class="bg-slate-800/60 p-2.5 rounded-xl border border-slate-700/50">
+            <span class="block text-xs text-slate-400">自駕期間</span>
+            <span class="text-sm sm:text-base font-bold text-amber-400">11/12 16:00 ～ 11/25 16:00</span>
+          </div>
+          <div class="bg-slate-800/60 p-2.5 rounded-xl border border-slate-700/50">
+            <span class="block text-xs text-slate-400">住宿狀態</span>
+            <span class="text-sm sm:text-base font-bold text-emerald-400">13 筆住宿參考</span>
+          </div>
+          <div class="bg-slate-800/60 p-2.5 rounded-xl border border-slate-700/50">
+            <span class="block text-xs text-slate-400">重要硬時程</span>
+            <span class="text-sm sm:text-base font-bold text-rose-400">9 項重要時程提醒</span>
+          </div>
+          <div class="bg-slate-800/60 p-2.5 rounded-xl border border-slate-700/50">
+            <span class="block text-xs text-slate-400">11/21 高千穗</span>
+            <span class="text-sm sm:text-base font-bold text-sky-400">峽谷步道・真名井瀑布</span>
+          </div>
+        </div>
+        <div class="download-actions flex flex-wrap gap-2 mt-4">
+
+
+
+          <button class="download-chip rounded-lg px-3 py-2 text-xs font-semibold text-white" onclick="window.print()">列印／另存 PDF</button>
+        </div>
+      </div>
+      <!-- 裝飾背景花紋 -->
+
+      <div class="absolute -right-10 -bottom-10 w-72 h-72 bg-brand-500/10 rounded-full blur-3xl pointer-events-none"></div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- TAB 1: 每日行程時間軸 (TIMELINE) -->
+    <!-- ========================================== -->
+    <section id="tab-timeline" class="tab-content space-y-6">
+
+      <!-- 快速篩選與分段快捷鍵 -->
+      <div class="flex flex-wrap items-center justify-between gap-3 bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+        <div class="flex items-center space-x-2">
+          <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">分段篩選：</span>
+          <div class="inline-flex rounded-lg bg-slate-100 p-1 text-xs">
+            <button onclick="filterTimeline('all')" class="filter-btn active px-3 py-1.5 rounded-md font-semibold text-slate-700 bg-white shadow-sm" data-filter="all">全部 (22天)</button>
+            <button onclick="filterTimeline('part1')" class="filter-btn px-3 py-1.5 rounded-md font-medium text-slate-600 hover:text-slate-900" data-filter="part1">第一段: 熊本進場</button>
+            <button onclick="filterTimeline('part2')" class="filter-btn px-3 py-1.5 rounded-md font-medium text-slate-600 hover:text-slate-900" data-filter="part2">第二段: 九州自駕</button>
+            <button onclick="filterTimeline('part3')" class="filter-btn px-3 py-1.5 rounded-md font-medium text-slate-600 hover:text-slate-900" data-filter="part3">第三段: 福岡慢遊</button>
+          </div>
+        </div>
+
+        <!-- 日期橫向快速滑動條 -->
+        <div class="flex items-center overflow-x-auto py-1 max-w-full space-x-1.5 text-xs" id="quick-day-jumper">
+          <!-- 由 JS 自動生成 22 天快捷跳轉標籤 -->
+        </div>
+      </div>
+
+      <!-- 每日行程清單渲染區 -->
+      <div id="timeline-list" class="space-y-6">
+        <!-- 內容由 JS 依據數據動態填入，保持完整 22 天所有細節與操作要點 -->
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- TAB 2: 硬時程與預約日曆 (MILESTONES) -->
+    <!-- ========================================== -->
+    <section id="tab-milestones" class="tab-content hidden space-y-6">
+      <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-200">
+          <div>
+            <h3 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+              <span class="p-1.5 rounded-lg bg-rose-100 text-rose-700">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+              </span>
+              出發前硬時程與關鍵截止死線（互動打勾）
+            </h3>
+            <p class="text-xs text-slate-500 mt-1">打勾狀態會自動儲存在此瀏覽器，點擊可標註完成進度。</p>
+          </div>
+          <div class="flex items-center space-x-3 bg-slate-50 px-4 py-2 rounded-xl border border-slate-200">
+            <span class="text-xs text-slate-500">完成進度：</span>
+            <span id="milestone-counter" class="text-sm font-bold text-brand-700">0 / 10</span>
+          </div>
+        </div>
+
+        <div class="divide-y divide-slate-100" id="milestones-container">
+          <!-- 項目由 JS 渲染 -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- TAB 3: 住宿確認清單 (HOTELS) -->
+    <!-- ========================================== -->
+    <section id="tab-hotels" class="tab-content hidden space-y-6">
+      <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-200">
+          <div>
+            <h3 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+              <span class="p-1.5 rounded-lg bg-brand-100 text-brand-700">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+              </span>
+              全行程住宿總覽
+            </h3>
+            <p class="text-xs text-slate-500 mt-1">住宿地點、餐食與入住規定。</p>
+          </div>
+          <div class="text-xs font-semibold px-3 py-1.5 rounded-lg bg-emerald-50 text-emerald-700 border border-emerald-200 inline-block self-start">
+            住宿參考・13 筆
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6" id="hotels-grid">
+          <!-- 13 筆住宿卡片由 JS 渲染 -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- TAB 4: 避坑與自駕決策錦囊 (GUIDE) -->
+    <!-- ========================================== -->
+    <section id="tab-guide" class="tab-content hidden space-y-6">
+      
+      <!-- 5 大核心決策卡片 -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+        <!-- 11/15 稻佐山夜景與茂木月と海決策 -->
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 hover:shadow-md transition">
+          <div class="flex items-center space-x-2 text-rose-700 font-bold mb-3 text-sm">
+            <span class="w-6 h-6 rounded-full bg-rose-100 flex items-center justify-center text-xs">1</span>
+            <h4>11/15 稻佐山夜景管制與茂木月と海採買</h4>
+          </div>
+          <ul class="text-xs sm:text-sm text-slate-600 space-y-2 list-disc list-inside">
+            <li><strong class="text-slate-800">週日夜間管制：</strong>11/15 星期日 18:00～22:00 稻佐山頂停車場禁止一般自小客車上山。</li>
+            <li><strong class="text-slate-800">操作 SOP：</strong>16:15 前抵達<strong>「中腹免費停車場」</strong>，改搭斜坡車（スロープカー）上山賞景。</li>
+            <li><strong class="text-slate-800">日落時間：</strong>17:20 左右日落與藍調夜景，最晚 18:15 必須搭車下山離開。</li>
+            <li><strong class="text-slate-800">Sマート茂木店採買：</strong>19:15 抵達超市購買晚餐與隔日早餐（21:00 關門），「月と海」無餐食供應。</li>
+            <li><strong class="text-rose-600 font-semibold">現場現金支付：</strong>月と海須於現場以現金支付房費 ¥11,000。</li>
+          </ul>
+        </div>
+
+        <!-- 11/17 門司港 BEB5 停車決策 -->
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 hover:shadow-md transition">
+          <div class="flex items-center space-x-2 text-indigo-700 font-bold mb-3 text-sm">
+            <span class="w-6 h-6 rounded-full bg-indigo-100 flex items-center justify-center text-xs">2</span>
+            <h4>11/17 門司港 BEB5 停車三段階梯決策</h4>
+          </div>
+          <ul class="text-xs sm:text-sm text-slate-600 space-y-2 list-disc list-inside">
+            <li><strong class="text-slate-800">首選飯店車位：</strong>BEB5 僅 25 格車位，先到先停，每晚 ¥1,100。</li>
+            <li><strong class="text-slate-800">第二順位（合作）：</strong>若滿位改停「關門海峽博物館」，24 小時上限 ¥800，入住時向櫃檯索取專用折抵券。</li>
+            <li><strong class="text-slate-800">第三順位（備案）：</strong>門司港西海岸停車場，24 小時上限 ¥500。</li>
+            <li><strong class="text-slate-800">平日週二規則：</strong>當天不購買三葉草套票，不依賴週末潮風號與唐戶市場海鮮攤位，以老街散步、燒咖哩與 BEB5 氛圍為主。</li>
+          </ul>
+        </div>
+
+        <!-- 11/20 黑川溫泉日歸與由布院 -->
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 hover:shadow-md transition">
+          <div class="flex items-center space-x-2 text-amber-700 font-bold mb-3 text-sm">
+            <span class="w-6 h-6 rounded-full bg-amber-100 flex items-center justify-center text-xs">3</span>
+            <h4>11/20 由布院延至 12:00 ＆ 黑川完整三小時日歸</h4>
+          </div>
+          <ul class="text-xs sm:text-sm text-slate-600 space-y-2 list-disc list-inside">
+            <li><strong class="text-slate-800">正式刪除九重吊橋：</strong>11 月山區易濃霧且強風，刪除九重夢大吊橋可省去 1.5 小時奔波。</li>
+            <li><strong class="text-slate-800">由布院店家節奏：</strong>湯之坪街道 09:30～10:00 才開門，保留至 12:00 吃完早午餐再出發最從容。</li>
+            <li><strong class="text-slate-800">黑川入湯手形：</strong>13:15～16:15 保有完整 3 小時，至風之舍購買手形，悠閒挑選 2 間露天風呂泡湯。</li>
+            <li><strong class="text-amber-800 font-semibold">16:15 準時離開山區：</strong>天黑前下山前往熊本大津，避開山道無路燈危險駕駛。</li>
+          </ul>
+        </div>
+
+        <!-- 11/23 秋月城跡國定假日早到守則 -->
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 hover:shadow-md transition">
+          <div class="flex items-center space-x-2 text-emerald-700 font-bold mb-3 text-sm">
+            <span class="w-6 h-6 rounded-full bg-emerald-100 flex items-center justify-center text-xs">4</span>
+            <h4>11/23 勤勞感謝之日（日本三連休）秋月早到</h4>
+          </div>
+          <ul class="text-xs sm:text-sm text-slate-600 space-y-2 list-disc list-inside">
+            <li><strong class="text-slate-800">出發時間硬守則：</strong>07:00 必須從熊本大津出發，目標於 <strong>09:30 前停妥</strong> 秋月公共停車場。</li>
+            <li><strong class="text-slate-800">聯外狹道塞車警告：</strong>秋月城跡入口道路狹窄，若 10:00 後抵達常需在路邊排隊等車位 1 小時以上。</li>
+            <li><strong class="text-rose-600 font-semibold">停損機制：</strong>接近甘木時若導航估算抵達秋月已超過 10:15，<strong>直接放棄秋月</strong>轉往小郡如意輪寺（青蛙寺）。</li>
+          </ul>
+        </div>
+
+        <!-- 11/25 Costco、加油、15:00 入房放行李與 16:00 還車 -->
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 md:col-span-2 hover:shadow-md transition">
+          <div class="flex items-center space-x-2 text-brand-700 font-bold mb-3 text-sm">
+            <span class="w-6 h-6 rounded-full bg-brand-100 flex items-center justify-center text-xs">5</span>
+            <h4>11/25 還車前黃金 SOP：先加油 ➔ 15:00 飯店放行李 ➔ 16:00 機場店還車</h4>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-4 gap-3 text-xs bg-slate-50 p-4 rounded-xl border border-slate-200">
+            <div>
+              <span class="font-bold text-slate-700 block mb-1">① 14:10～14:30 加滿油</span>
+              <p class="text-slate-500">於博多或機場周邊指定加油站加滿油，務必索取收據並拍攝油表儀表板。</p>
+            </div>
+            <div>
+              <span class="font-bold text-slate-700 block mb-1">② 14:30～14:50 抵達飯店</span>
+              <p class="text-slate-500">開車至 SAKURA HOTEL HAKATA 門口臨停，同行者卸下所有大行李箱與 Costco 採買物。</p>
+            </div>
+            <div>
+              <span class="font-bold text-slate-700 block mb-1">③ 15:00～15:15 入房放行李</span>
+              <p class="text-slate-500">辦理 Check-in 並將物品送進房間（不在房內整理），最晚 <strong>15:15 必須開車離開</strong>。</p>
+            </div>
+            <div>
+              <span class="font-bold text-brand-700 block mb-1">④ 15:40～16:00 機場還車</span>
+              <p class="text-slate-500">NICONICO 機場店驗車、結算 ETC，兩手空空搭乘免費接駁車去機場地鐵站，輕鬆回飯店！</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- 福岡五大美食安排推薦清單 -->
+      <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6">
+        <h3 class="text-base sm:text-lg font-bold text-slate-900 mb-3 flex items-center gap-2">
+          🍜 福岡五大熱門美食動線順路安排（不硬塞同一天）
+        </h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
+          <div class="bg-slate-50 border border-slate-200 rounded-xl p-3">
+            <span class="text-[11px] font-bold text-brand-700 bg-brand-100 px-2 py-0.5 rounded">11/26 早午餐</span>
+            <h5 class="font-bold text-slate-900 text-sm mt-1">おにぎりごりちゃん 天神店</h5>
+            <p class="text-xs text-slate-500 mt-1">手作大飯糰，排隊太長可選擇外帶。</p>
+          </div>
+          <div class="bg-slate-50 border border-slate-200 rounded-xl p-3">
+            <span class="text-[11px] font-bold text-brand-700 bg-brand-100 px-2 py-0.5 rounded">11/26 晚餐</span>
+            <h5 class="font-bold text-slate-900 text-sm mt-1">らぁめん いちむじん 渡辺通店</h5>
+            <p class="text-xs text-slate-500 mt-1">濃郁純豚骨拉麵，市區恢復日完美收尾。</p>
+          </div>
+          <div class="bg-slate-50 border border-slate-200 rounded-xl p-3">
+            <span class="text-[11px] font-bold text-amber-700 bg-amber-100 px-2 py-0.5 rounded">11/25 或 11/26 候補</span>
+            <h5 class="font-bold text-slate-900 text-sm mt-1">夢の一歩 天神店</h5>
+            <p class="text-xs text-slate-500 mt-1">二郎系拉麵、份量極大，請量力而為點餐。</p>
+          </div>
+          <div class="bg-slate-50 border border-slate-200 rounded-xl p-3">
+            <span class="text-[11px] font-bold text-indigo-700 bg-indigo-100 px-2 py-0.5 rounded">11/27 晚餐</span>
+            <h5 class="font-bold text-slate-900 text-sm mt-1">博多らーめん ShinShin 天神本店</h5>
+            <p class="text-xs text-slate-500 mt-1">太宰府回程順路，排隊過長可改博多站分店。</p>
+          </div>
+          <div class="bg-slate-50 border border-slate-200 rounded-xl p-3">
+            <span class="text-[11px] font-bold text-slate-600 bg-slate-200 px-2 py-0.5 rounded">保留候補（需自駕）</span>
+            <h5 class="font-bold text-slate-900 text-sm mt-1">本格回転寿し 大河すし</h5>
+            <p class="text-xs text-slate-500 mt-1">位處市郊，11/25 需配合還車時間，不強求。</p>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- 浮動 Toast 提示框 -->
+  <div id="toast" class="fixed top-20 right-5 z-50 bg-slate-900 text-white text-xs px-4 py-2.5 rounded-xl shadow-xl flex items-center space-x-2 transition-all duration-300 opacity-0 pointer-events-none transform translate-y-2">
+    <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+    <span id="toast-text">已複製到剪貼簿！</span>
+  </div>
+
+  <!-- 資料結構與互動腳本 -->
+  <script>
+    // 1. 全程 13 筆住宿資料
+    const hotelData = [
+      {
+        date: "11/10 – 11/12",
+        nights: "連住 2 晚",
+        area: "熊本",
+        name: "Ark Hotel Kumamotojo Mae",
+        jpName: "アークホテル熊本城前",
+        platform: "Agoda",
+
+        meal: "無早餐",
+        status: "已確認",
+        address: "熊本県熊本市中央区城東町5-16",
+        notes: "近通町筋電車站（步行約 6 分鐘）；熊本機場巴士建議於「通町筋」下車。"
+      },
+      {
+        date: "11/12 – 11/14",
+        nights: "連住 2 晚",
+        area: "波佐見",
+        name: "HOTEL AZ 長崎波佐見店",
+        jpName: "HOTEL AZ 長崎波佐見店",
+        platform: "官網",
+
+        meal: "附免費早餐",
+        status: "已確認",
+        address: "長崎県東彼杵郡波佐見町折敷瀬郷字三反田45-1",
+        notes: "附大型免費停車場；11/13 連住不退房，直攻九十九島。"
+      },
+      {
+        date: "11/14 – 11/15",
+        nights: "1 晚",
+        area: "西海",
+        name: "Jisco Hotel Saikai",
+        jpName: "ジスコホテル西海",
+        platform: "Agoda",
+
+        meal: "無早餐",
+        status: "已確認（已寄信延後入住）",
+        address: "長崎県西海市大瀬戸町瀬戸樫浦郷2502-11",
+        notes: "最晚入住 24:00！散場車潮嚴重，已寄信告知飯店預計 22:30～23:30 抵達並保留客房。"
+      },
+      {
+        date: "11/15 – 11/16",
+        nights: "1 晚",
+        area: "長崎茂木",
+        name: "NAGASAKI SEASIDE HOTEL 月と海",
+        jpName: "NAGASAKI SEASIDE HOTEL 月と海",
+        platform: "官網",
+
+        meal: "不含餐食",
+        status: "已確認（現場付現）",
+        address: "長崎県長崎市茂木町2115",
+        notes: "現場現金支付 ¥11,000；入住 16:00～22:00；晚餐需於市區或 Sマート茂木店先買好。"
+      },
+      {
+        date: "11/16 – 11/17",
+        nights: "1 晚",
+        area: "佐賀吉野里",
+        name: "HOTEL AZ 佐賀吉野ヶ里店",
+        jpName: "HOTEL AZ 佐賀吉野ヶ里店",
+        platform: "官網",
+
+        meal: "附免費早餐",
+        status: "已確認",
+        address: "佐賀県神埼郡吉野ヶ里町吉田834-1",
+        notes: "全程陸路不搭渡輪；免費平面停車場。"
+      },
+      {
+        date: "11/17 – 11/18",
+        nights: "1 晚",
+        area: "門司港",
+        name: "BEB5 Mojiko by Hoshino Resorts",
+        jpName: "星野リゾート BEB5 門司港",
+        platform: "Agoda",
+
+        meal: "無早餐",
+        status: "已確認",
+        address: "福岡県北九州市門司区港町",
+        notes: "停車三段階梯：飯店25格先到先停(¥1,100) ➔ 關門海峽博物館專用券(¥800) ➔ 西海岸(¥500)。"
+      },
+      {
+        date: "11/18 – 11/19",
+        nights: "1 晚",
+        area: "北九州小倉",
+        name: "HOTEL AZ 北九州小倉店",
+        jpName: "HOTEL AZ 北九州小倉店",
+        platform: "官網",
+
+        meal: "附免費早餐",
+        status: "已確認",
+        address: "福岡県北九州市小倉北区西港町",
+        notes: "免費停車；晚間安排皿倉山纜車（週三營運，最後上山 19:20）。"
+      },
+      {
+        date: "11/19 – 11/20",
+        nights: "1 晚",
+        area: "別府溫泉",
+        name: "ととのいの宿 春燈庵",
+        jpName: "ととのいの宿 春燈庵",
+        platform: "Agoda",
+
+        meal: "泊食分離（無餐）",
+        status: "已確認（已發訊登記車位）",
+        address: "大分県別府市鶴見字大畑5組",
+        notes: "硬死線：最晚 19:00 前辦理入住！客房附專屬半露天溫泉與三溫暖，需提早自備晚餐。"
+      },
+      {
+        date: "11/20 – 11/23",
+        nights: "連住 3 晚",
+        area: "熊本大津",
+        name: "Workers Hotel Kumamoto Ozu",
+        jpName: "Workers Hotel 熊本大津",
+        platform: "Agoda",
+
+        meal: "依方案/現場確認",
+        status: "已確認",
+        address: "熊本県菊池郡大津町室",
+        notes: "連住 3 晚免搬行李！為高千穗與阿蘇的完美出發樞紐；11/21 早餐自備。"
+      },
+      {
+        date: "11/23 – 11/25",
+        nights: "連住 2 晚",
+        area: "佐賀吉野里",
+        name: "HOTEL AZ 佐賀吉野ヶ里店",
+        jpName: "HOTEL AZ 佐賀吉野ヶ里店",
+        platform: "官網",
+
+        meal: "附免費早餐",
+        status: "已確認",
+        address: "佐賀県神埼郡吉野ヶ里町吉田834-1",
+        notes: "連住 2 晚；11/24 九年庵秋季限定公開（08:00 平日停舊溫泉跡地）；11/25 退房往 Costco。"
+      },
+      {
+        date: "11/25 – 11/29",
+        nights: "連住 4 晚",
+        area: "福岡博多",
+        name: "SAKURA HOTEL HAKATA",
+        jpName: "SAKURA HOTEL HAKATA",
+        platform: "Agoda",
+
+        meal: "無早餐",
+        status: "已確認",
+        address: "福岡県福岡市博多区博多駅南2丁目11-25",
+        notes: "11/25 15:00 先到飯店入房放行李與 Costco 物品，15:15 離開去機場店還車！連住 4 晚無車慢遊。"
+      },
+      {
+        date: "11/29 – 11/30",
+        nights: "1 晚",
+        area: "福岡天神",
+        name: "東橫INN 福岡天神",
+        jpName: "東横INN 福岡天神",
+        platform: "官網",
+
+        meal: "附免費早餐",
+        status: "已確認",
+        address: "福岡県福岡市中央区渡辺通5丁目15-14",
+        notes: "當日 YOASOBI 演唱會！上午 10:30 寄放行李時務必告知櫃檯「演唱會散場約 21:30 才回來領房卡」。"
+      },
+      {
+        date: "11/30 – 12/1",
+        nights: "1 晚",
+        area: "熊本市區",
+        name: "天然溫泉 六花の湯 ドーミーイン熊本",
+        jpName: "天然温泉 六花の湯 ドーミーイン熊本",
+        platform: "Booking.com",
+
+        meal: "附早餐",
+        status: "已確認",
+        address: "熊本県熊本市中央区辛島町3-1",
+        notes: "辛島町路段；附大浴場與夜鳴拉麵；退房後步行至櫻町巴士總站搭車前往熊本機場極為順路。"
+      }
+    ];
+
+    // 2. 關鍵硬時程與預約死線
+    const milestoneData = [
+
+      { id: "m2", time: "11/12 16:00", event: "福岡機場取車手續", desc: "NICONICO 福岡機場店。15:20 前抵達接駁處；確認 ETC、全險、導航與還車規範。" },
+      { id: "m3", time: "11/13 10:00", event: "九十九島 Pearl Queen 遊船", desc: "當日硬時程！09:20 抵達售票處買票；11:00 班次為後備備援。" },
+      { id: "m4", time: "11/14 18:45", event: "豪斯登堡花火祭 ＆ 24:00入住死線", desc: "煙火 20:30 結束；散場嚴重塞車，預計 22:30～23:30 抵達 Jisco Hotel Saikai；晚到請先聯絡飯店。" },
+      { id: "m5", time: "11/15 16:15", event: "稻佐山中腹停車場管制", desc: "星期日 18:00～22:00 山頂車輛管制！16:15 停妥中腹搭斜坡車；18:15 必須下山前往茂木。" },
+      { id: "m6", time: "11/18 19:20 前", event: "皿倉山最後上山纜車", desc: "週三正常營運；夜景末班上山 19:20；若強風濃霧直接取消。" },
+      { id: "m7", time: "11/19 17:30", event: "別府春燈庵 19:00 入住死線", desc: "官方最晚 19:00 辦理入住！預計 17:30 抵達，停車安排請依飯店指引。" },
+      { id: "m8", time: "11/23 07:00", event: "大津早出發往秋月（國定假日）", desc: "勤勞感謝之日人潮多！07:00 出發、09:30 前停妥。若甘木導航估算超過 10:15 則轉往如意輪寺。" },
+      { id: "m9", time: "11/25 15:15", event: "飯店放行李 ＆ 16:00 定時還車", desc: "Costco 後先加油 ➔ 15:00 入房放行李 ➔ 15:15 必須離開 ➔ 16:00 NICONICO 機場店還車！" },
+      { id: "m10", time: "11/29 14:30", event: "YOASOBI 福岡巨蛋入場", desc: "17:00 開演；天神東橫INN 寄放行李時務必註記晚歸 Check-in；散場人潮擁擠。" }
+    ];
+
+    // 3. 22 天完整行程資料（V10 時間軸定案版）
+    const timelineData = [
+      {
+        day: 1,
+        date: "11/10 (二)",
+        part: "part1",
+        title: "抵達熊本，入住熊本城前飯店",
+        stay: "Ark Hotel Kumamotojo Mae（已確認）",
+        driveTime: "0 小時（大眾運輸）",
+        highlight: "虎航 IT794 台南飛熊本（15:55–19:00）；機場巴士直達市區通町筋。",
+        schedule: [
+          { time: "15:55～19:00", act: "虎航 IT794 直飛熊本機場；出關領行李、開通網路、提領日圓現鈔。" },
+          { time: "19:40～20:20", act: "機場 4 號月台搭乘「機場利木津巴士」，於【通町筋】下車（車程約 40 分鐘，票價 ¥1,400）。" },
+          { time: "20:30～21:00", act: "步行 6 分鐘抵達 Ark Hotel 辦理 Check-in 入住手續。" },
+          { time: "21:00 後", act: "下通／上通商店街散步，享用熊本黑亭拉麵或居酒屋晚餐；便利商店補水早點休息。" }
+        ],
+        decisions: {
+          eat: "住下通/上通周邊最方便，晚上直接吃拉麵或居酒屋。",
+          park: "市區完全不租車，省下市區高昂停車費與長途疲勞駕駛。",
+          delay: "航班若有延誤，取消所有散步，直奔飯店入住後超商解決晚餐。",
+          notes: "機場往市區巴士最晚至 21:35，下車站選「通町筋」比櫻町總站少走 10 分鐘。"
+        }
+      },
+      {
+        day: 2,
+        date: "11/11 (三)",
+        part: "part1",
+        title: "熊本城與熊本市區完整散步日",
+        stay: "Ark Hotel Kumamotojo Mae（連住第 2 晚）",
+        driveTime: "0 小時（熊本市電＋步行）",
+        highlight: "天守閣與石垣修復、櫻之馬場城彩苑、水前寺成趣園。",
+        schedule: [
+          { time: "08:50～11:30", act: "步行前往熊本城，參觀天守閣內部展示與地震石垣修復步道。" },
+          { time: "11:40～13:30", act: "櫻之馬場城彩苑／櫻町熊本享用午餐，採買熊本特色伴手禮。" },
+          { time: "13:30～15:00", act: "下通、上通拱廊商圈漫步與特色咖啡時光。" },
+          { time: "15:15～16:45", act: "搭乘市電前往水前寺成趣園，欣賞經典池泉迴遊式庭園景致。" },
+          { time: "17:30 後", act: "市區享用馬肉刺身或在地鄉土料理；整理隔日新幹線與福岡取車憑證。" }
+        ],
+        decisions: {
+          eat: "午餐排城彩苑，晚餐留下通拱廊商圈。",
+          park: "利用市電一日券或交通 IC 卡，全日步行與軌道移動。",
+          delay: "若時間不足先刪除下午咖啡與購物，水前寺務必於關園前抵達。",
+          notes: "熊本城門票可行前線上購買免排隊。"
+        }
+      },
+      {
+        day: 3,
+        date: "11/12 (四)",
+        part: "part2",
+        title: "新幹線往博多，16:00 福岡機場取車直奔波佐見",
+        stay: "HOTEL AZ 長崎波佐見店（連住第 1 晚）",
+        driveTime: "取車後約 1 小時 40 分～2 小時",
+        highlight: "自駕正式展開！新幹線移動、16:00 NICONICO 機場店取車、直達波佐見溫泉鄉。",
+        schedule: [
+          { time: "09:10～09:40", act: "Ark Hotel 退房，搭車前往熊本車站。" },
+          { time: "10:20～11:10", act: "搭乘九州新幹線前往博多車站（車程約 50 分鐘）。" },
+          { time: "11:15～14:20", act: "博多車站寄放行李、享用午餐與車站商圈短暫採買（不排遠程景點）。" },
+          { time: "14:45～15:30", act: "搭地鐵至福岡機場國內線，前往租車接駁點等待專車接送。" },
+          { time: "16:00～16:40", act: "NICONICO 福岡機場店完成取車：驗車、確認 ETC、油種、保險與操作。" },
+          { time: "16:40～18:40", act: "行駛高速公路直奔波佐見（途中停靠一次休息區，不繞路景點）。" },
+          { time: "18:40 後", act: "入住 HOTEL AZ 長崎波佐見店，使用館內晚餐或附近定食，早睡備戰九十九島。" }
+        ],
+        decisions: {
+          eat: "午餐在博多車站享用，晚餐使用 HOTEL AZ 館內方案或周邊便當。",
+          park: "HOTEL AZ 長崎波佐見店提供大型免費平面停車位。",
+          delay: "任何高速塞車皆由博多時間吸收，晚間不在山區夜路冒險。",
+          notes: "租車 16:00 取車已確認，還車時間鎖定 11/25 16:00。"
+        }
+      },
+      {
+        day: 4,
+        date: "11/13 (五)",
+        part: "part2",
+        title: "九十九島遊覽船主日：Pearl Queen、石岳展望台與佐世保",
+        stay: "HOTEL AZ 長崎波佐見店（連住第 2 晚，不退房）",
+        driveTime: "約 2～2.5 小時",
+        highlight: "10:00 Pearl Queen 船班硬時程！石岳展望台環景、佐世保漢堡。",
+        schedule: [
+          { time: "08:20～09:20", act: "享用飯店早餐後出發前往九十九島 Pearl Sea Resort 園區。" },
+          { time: "09:20～09:50", act: "【硬時程】抵達售票處現場購買 Pearl Queen 船票（個人票現場購）。" },
+          { time: "10:00～10:50", act: "搭乘 Pearl Queen 遊覽船巡航九十九島海灣（若滿位改 11:00 備援）。" },
+          { time: "11:00～12:20", act: "園區散步，品嚐現烤牡蠣或在地著名的佐世保巨大漢堡。" },
+          { time: "12:30～14:00", act: "海きらら水族館輕鬆參觀（或海邊咖啡館放空）。" },
+          { time: "14:15～15:20", act: "開車前往石岳展望台，居高臨下俯瞰九十九島無敵全景（最後武士取景地）。" },
+          { time: "15:30～17:00", act: "佐世保市區短暫停留或採買，天黑前返回波佐見飯店休整。" }
+        ],
+        decisions: {
+          eat: "午餐於 Pearl Sea Resort 享用佐世保漢堡；晚餐返回波佐見。",
+          park: "Pearl Sea Resort 具備約 700 格收費停車位，前 30 分鐘通常免費。",
+          delay: "若遇起霧或延誤，先刪海きらら水族館與市區購物，守住遊覽船與石岳。",
+          notes: "平戶列為臨時候補，本版不硬排生月島與大碆鼻燈塔。"
+        }
+      },
+      {
+        day: 5,
+        date: "11/14 (六)",
+        part: "part2",
+        title: "豪斯登堡 Miffy Wonder Square 與九州一大花火祭",
+        stay: "Jisco Hotel Saikai（已寄信保留客房）",
+        driveTime: "約 1.5 小時（不含散場嚴重塞車）",
+        highlight: "米飛兔展區、白天歐風造景、18:45 九州一大花火祭、散場深夜入住西海。",
+        schedule: [
+          { time: "08:10～08:35", act: "退房離開波佐見，車上備妥飲用水、乾糧與保暖衣物。" },
+          { time: "09:10 前", act: "抵達豪斯登堡官方停車場，排隊入園並核對煙火座席票券。" },
+          { time: "09:30～12:00", act: "搶先參觀 Miffy Wonder Square 主題展區與拍照打卡熱點。" },
+          { time: "12:00～16:15", act: "歐風運河造景散步、欣賞街頭表演、午餐與室內咖啡館休息。" },
+          { time: "16:15～17:15", act: "【關鍵】提早享用晚餐、裝水上洗手間，避免開演前大排長龍。" },
+          { time: "18:45～20:30", act: "【硬時程】九州一大花火祭盛大施放！震撼音樂煙火秀。" },
+          { time: "20:30～22:30", act: "配合指揮隨車潮依序離場，開往西海（車程受塞車影響可能大幅延長）。" },
+          { time: "22:30～23:30", act: "抵達 Jisco Hotel Saikai 辦理入住（最晚死線 24:00，已事前寄信報備）。" }
+        ],
+        decisions: {
+          eat: "園區內 16:15 提早吃晚餐；車內務必預備麵包與飲水以防塞車受困。",
+          park: "停豪斯登堡官方大型停車場，離場時耐心依交警引導，勿搶快切換車道。",
+          delay: "白天遊樂設施皆可刪，守住 Miffy 與 18:45 煙火特別席。",
+          notes: "若 22:00 仍卡在出停車場車潮中，再次撥電話至飯店告知進度。"
+        }
+      },
+      {
+        day: 6,
+        date: "11/15 (日)",
+        part: "part2",
+        title: "長崎市區、稻佐山夕景夜景與茂木海邊住宿",
+        stay: "NAGASAKI SEASIDE HOTEL 月と海（官網已確認，付現 ¥11,000）",
+        driveTime: "約 2～2.5 小時",
+        highlight: "長崎眼鏡橋、哥拉巴園、16:15 稻佐山中腹停車＋斜坡車、Sマート茂木店採買。",
+        schedule: [
+          { time: "09:15～10:45", act: "Jisco 退房開車前往長崎市區，停放於公有停車場轉步行與市電。" },
+          { time: "10:45～11:40", act: "眼鏡橋、中島川尋找愛心石散步拍紀念照。" },
+          { time: "11:45～12:45", act: "新地中華街享用道地長崎強棒麵（雜錦麵）午餐。" },
+          { time: "13:00～15:15", act: "大浦天主堂、哥拉巴園南山手歷史風貌區漫步。" },
+          { time: "15:15～16:35", act: "取車前往【稻佐山中腹免費停車場】；週日傍晚山頂禁行自用車，改搭斜坡車上山。" },
+          { time: "16:35～18:10", act: "稻佐山展望台欣賞夕陽、17:20 日落、藍調時刻與長崎千萬級夜景。" },
+          { time: "18:10～19:15", act: "搭斜坡車下山，最晚 18:35 開車離開停車場，直奔茂木。" },
+          { time: "19:15～19:45", act: "抵達 Sマート茂木店採買晚餐熟食、飲料與隔日早餐（21:00 打烊）。" },
+          { time: "19:45～20:00", act: "抵達「月と海」辦理入住（現場付現 ¥11,000），客房放鬆聽海浪聲不再外出。" }
+        ],
+        decisions: {
+          eat: "午餐新地中華街；夜景下山後於 Sマート茂木店採買晚餐回飯店享用。",
+          park: "長崎市區停收費場；稻佐山停中腹免費場搭斜坡車；月と海門前有專屬車位。",
+          delay: "南山手 15:15 必須收尾；18:15 稻佐山立即啟程下山，不壓縮茂木採買。",
+          notes: "月と海完全無供餐，務必在市區或 Sマート買足食物；備妥日圓現鈔。"
+        }
+      },
+      {
+        day: 7,
+        date: "11/16 (一)",
+        part: "part2",
+        title: "祐德稻荷神社、御船山樂園紅葉，陸路前往吉野里",
+        stay: "HOTEL AZ 佐賀吉野ヶ里店（已確認）",
+        driveTime: "約 3.5～4 小時（全程陸路，不搭渡輪）",
+        highlight: "三大稻荷之祐德稻荷神社壯麗社殿、御船山樂園白天日照紅葉。",
+        schedule: [
+          { time: "09:00～11:10", act: "退房出發，沿陸路（經諫早、多良公路）前往祐德稻荷神社。" },
+          { time: "11:10～12:40", act: "祐德稻荷神社本殿參拜，拍攝壯麗紅色木造高架舞台建築。" },
+          { time: "12:40～13:30", act: "鹿島或武雄方向享用午餐（控制 45 分鐘內）。" },
+          { time: "13:45～14:30", act: "開車前往御船山樂園並停妥停車場。" },
+          { time: "14:30～16:30", act: "御船山樂園漫步欣賞斷崖岩壁與絕美白天秋季紅葉（不看夜間點燈）。" },
+          { time: "16:30～17:30", act: "行駛長崎自動車道前往吉野里，入住 HOTEL AZ 佐賀吉野里店。" }
+        ],
+        decisions: {
+          eat: "沿途公路定食；晚餐可訂 HOTEL AZ 餐廳方案，適合長途移動日。",
+          park: "祐德稻荷與御船山樂園皆具備大型專用停車場。",
+          delay: "奧之院階梯路程可省略；御船山務必在日落（17:15）前完成參觀。",
+          notes: "本行程落實全程走陸路高速，避開排隊等汽車渡輪的風險。"
+        }
+      },
+      {
+        day: 8,
+        date: "11/17 (二)",
+        part: "part2",
+        title: "吉野里北上門司港，入住星野 BEB5",
+        stay: "BEB5 Mojiko by Hoshino Resorts（已確認）",
+        driveTime: "約 2.5～3 小時",
+        highlight: "門司港復古車站、海峽廣場、門司港燒咖哩、入住星野 BEB5 與港灣夜景。",
+        schedule: [
+          { time: "08:30～11:00", act: "享用早餐後退房，沿九州道一路北上直奔門司港（中途休息一次）。" },
+          { time: "11:00～12:00", act: "處理停車，散步至門司港懷舊車站、舊門司三井俱樂部老建築。" },
+          { time: "12:00～13:00", act: "品嚐經典門司港名物「烤咖哩（燒咖哩）」午餐。" },
+          { time: "13:00～15:45", act: "藍翼門司吊橋開橋儀式、海峽廣場文創商店散步。" },
+          { time: "16:00 後", act: "入住星野集團 BEB5 門司港，享用公共空間與咖啡，傍晚觀賞港區唯美夜景。" }
+        ],
+        decisions: {
+          eat: "午餐吃排隊名店燒咖哩；晚餐留在門司港老街，入住後不再開車出門。",
+          park: "BEB5 車位 25 格先到先停(¥1,100) ➔ 滿位改關門海峽博物館領券(¥800) ➔ 西海岸(¥500)。",
+          delay: "週二唐戶市場無生魚片攤位，取消三葉草套票，行程純粹散步極度悠閒。",
+          notes: "飯店若滿位，務必向 BEB5 櫃檯領取博物館合作停車場折抵券。"
+        }
+      },
+      {
+        day: 9,
+        date: "11/18 (三)",
+        part: "part2",
+        title: "小倉城、旦過市場與皿倉山百億夜景",
+        stay: "HOTEL AZ 北九州小倉店（已確認）",
+        driveTime: "約 1.5～2 小時",
+        highlight: "小倉城勝山公園、旦過市場、皿倉山斜坡纜車（週三營運，最後上山 19:20）。",
+        schedule: [
+          { time: "09:30～10:00", act: "BEB5 退房後開車前往北九州小倉市區。" },
+          { time: "10:00～11:45", act: "小倉城天守閣參觀、小倉城庭園與勝山公園綠地散步。" },
+          { time: "11:45～13:00", act: "漫步旦過市場體驗在地昭和市場風情並享用庶民小吃午餐。" },
+          { time: "13:00～14:15", act: "Riverwalk 購物商場或小倉商店街咖啡悠閒時光。" },
+          { time: "14:15～15:15", act: "前往皿倉山纜車山麓站停車場停妥車輛並購票。" },
+          { time: "15:15～18:30", act: "【硬時程】搭乘登山纜車與斜坡車直上皿倉山頂，眺望新日本三大夜景。" },
+          { time: "18:30～19:30", act: "下山開車前往 HOTEL AZ 北九州小倉店辦理入住並享用晚餐。" }
+        ],
+        decisions: {
+          eat: "午餐旦過市場；晚餐可於小倉市區先吃完或回 HOTEL AZ 附屬餐廳解決。",
+          park: "小倉市區停一次公有場後步行；皿倉山停山麓立體停車場（山頂不可自駕）。",
+          delay: "15:45 前若天候惡劣、大霧或強風，直接取消皿倉山，改市區室內採買。",
+          notes: "皿倉山纜車固定安排週三（避開週二公休日），冬季營業至 20:00。"
+        }
+      },
+      {
+        day: 10,
+        date: "11/19 (四)",
+        part: "part2",
+        title: "青之洞門、耶馬溪紅葉、別府海地獄與春燈庵",
+        stay: "ととのいの宿 春燈庵（已確認，車位已登記）",
+        driveTime: "約 3.5～4.5 小時",
+        highlight: "青之洞門古道、耶馬溪紅葉、別府海地獄、春燈庵 17:30 入住享受私人溫泉。",
+        schedule: [
+          { time: "08:15～09:45", act: "HOTEL AZ 退房出發，前往大分中津耶馬溪方向。" },
+          { time: "09:45～10:30", act: "青之洞門停車場停妥，步行參觀禪海和尚開鑿之古洞門奇景（車輛禁行）。" },
+          { time: "10:30～11:50", act: "耶馬溪一目八景欣賞火山凝灰岩石峰與秋日紅葉。" },
+          { time: "11:50～13:30", act: "沿途享用中津炸雞定食，開車翻越山區直達別府市。" },
+          { time: "13:30～16:10", act: "別府地獄名所巡禮：海地獄（蔚藍熱泉）＋鬼石坊主地獄（泥漿氣泡）。" },
+          { time: "16:10～17:30", act: "超市採買今晚豪華晚餐、飲料與明日早餐，抵達春燈庵辦理入住。" },
+          { time: "17:30 後", act: "【硬死線 19:00】享受客房專屬私人露天溫泉與三溫暖，館內極致放鬆。" }
+        ],
+        decisions: {
+          eat: "春燈庵泊食分離無餐廳，入住前必須在市區買足晚餐、宵夜與隔日早餐。",
+          park: "春燈庵車位有限，已提早通知保留；青之洞門停公有場依現場導引步行。",
+          delay: "若進度延誤先刪一目八景，地獄縮短只看海地獄，絕不壓線錯過 19:00 入住！",
+          notes: "青之洞門隧道車輛維持禁止通行，切勿強行導航開入。"
+        }
+      },
+      {
+        day: 11,
+        date: "11/20 (五)",
+        part: "part2",
+        title: "由布院早午餐與黑川溫泉深度日歸（刪九重）",
+        stay: "Workers Hotel Kumamoto Ozu（已確認，連住第 1 晚）",
+        driveTime: "約 3.5～4 小時（山路）",
+        highlight: "金鱗湖晨散、湯之坪早午餐、山並公路景觀、黑川溫泉 3 小時雙名湯日歸。",
+        schedule: [
+          { time: "07:30～08:15", act: "享用自備早餐後退房離開春燈庵，出發前往由布院。" },
+          { time: "08:45～09:45", act: "抵達由布院，漫步金鱗湖欣賞清晨湖畔山嵐與波光倒影。" },
+          { time: "09:45～11:00", act: "湯之坪街道散策，順路採買蛋糕捲、可樂餅與文創伴手禮。" },
+          { time: "11:00～12:00", act: "提早享用由布院早午餐（地雞或蕎麥麵），避開正午排隊熱潮。" },
+          { time: "12:00～13:15", act: "沿「山並公路（やまなみハイウェイ）」開往黑川溫泉（長者原短停拍照）。" },
+          { time: "13:15～16:15", act: "【完整 3 小時】風之舍購買入湯手形，任選 2 處名湯露天風呂＋老街漫步。" },
+          { time: "16:15～17:45", act: "【關鍵】16:15 準時離開山區，沿國道開往平原區的熊本大津。" },
+          { time: "17:45 後", act: "入住 Workers Hotel Kumamoto Ozu，連住三晚免搬行李，大津商圈晚餐。" }
+        ],
+        decisions: {
+          eat: "由布院吃飽再出發；黑川沿途吃溫泉蛋布丁小點；晚餐到大津後享用。",
+          park: "由布院停外圍大型公有場；黑川停公有無料停車場（勿佔用旅館專用格）。",
+          delay: "本版正式刪除九重夢大吊橋，確保黑川能悠閒泡滿兩間溫泉。",
+          notes: "日落時間 17:15，黑川 16:15 必須啟程下山，確保山路安全。"
+        }
+      },
+      {
+        day: 12,
+        date: "11/21 (六)",
+        part: "part2",
+        title: "高千穗峽步道、真名井瀑布與天岩戶神社",
+        stay: "Workers Hotel Kumamoto Ozu（連住第 2 晚，不退房）",
+        driveTime: "往返約 3～4 小時",
+        highlight: "上午走峽谷、看真名井瀑布；下午保留天岩戶神社與天安河原。",
+        schedule: [
+          { time: "06:15～07:00", act: "自備早餐，準備出門。" },
+          { time: "07:00～08:30", act: "從熊本大津出發前往高千穗峽，依現場指引停車。 <span class=\"inline-flex flex-wrap gap-2\"><a class=\"underline\" href=\"https://www.google.com/maps/search/?api=1&query=%E9%AB%98%E5%8D%83%E7%A9%82%E5%B3%A1%20%E5%BE%A1%E5%A1%A9%E4%BA%95%E9%A7%90%E8%BB%8A%E5%A0%B4\" target=\"_blank\" rel=\"noopener\">Google Maps</a><a class=\"underline\" href=\"https://maps.apple.com/?daddr=%E9%AB%98%E5%8D%83%E7%A9%82%E5%B3%A1%20%E5%BE%A1%E5%A1%A9%E4%BA%95%E9%A7%90%E8%BB%8A%E5%A0%B4&amp;dirflg=d\" target=\"_blank\" rel=\"noopener\">Apple Maps 開車導航</a></span>" },
+          { time: "08:30～11:45", act: "高千穗峽步道、真名井瀑布與拍照；依當天步道開放狀況彈性走。未取得划船票，本日不安排划船。" },
+          { time: "11:45～12:15", act: "在高千穗簡單吃午餐；若提早走完步道，也可提前用餐。" },
+          { time: "12:15～12:45", act: "前往天岩戶神社並停車，依當天路況調整。 <span class=\"inline-flex flex-wrap gap-2\"><a class=\"underline\" href=\"https://www.google.com/maps/search/?api=1&query=%E5%A4%A9%E5%B2%A9%E6%88%B8%E7%A5%9E%E7%A4%BE%20%E8%A5%BF%E6%9C%AC%E5%AE%AE%20%E9%A7%90%E8%BB%8A%E5%A0%B4\" target=\"_blank\" rel=\"noopener\">Google Maps</a><a class=\"underline\" href=\"https://maps.apple.com/?daddr=%E5%A4%A9%E5%B2%A9%E6%88%B8%E7%A5%9E%E7%A4%BE%20%E8%A5%BF%E6%9C%AC%E5%AE%AE%20%E9%A7%90%E8%BB%8A%E5%A0%B4&amp;dirflg=d\" target=\"_blank\" rel=\"noopener\">Apple Maps 開車導航</a></span>" },
+          { time: "12:45～13:40", act: "天岩戶神社西本宮參拜。" },
+          { time: "13:40～15:10", act: "沿溪谷步道往返天安河原；若下雨路滑或體力不足就縮短。" },
+          { time: "15:15～17:00", act: "原路返回熊本大津 Workers Hotel，晚餐與休息。" }
+        ],
+        decisions: {
+          eat: "早餐自備；午餐挑好停車、能快速用餐的餐廳。",
+          park: "依當天停車場及現場引導停車，預留走到步道的時間。",
+          delay: "上午散步與拍照時間可彈性縮短，保留午後行程與回程緩衝。",
+          notes: "各時段為日本當地預排時間；步道以當天開放狀況為準。"
+        }
+      },
+      {
+        day: 13,
+        date: "11/22 (日)",
+        part: "part2",
+        title: "阿蘇大觀峰、阿蘇神社門前町與草千里高原",
+        stay: "Workers Hotel Kumamoto Ozu（連住第 3 晚，不退房）",
+        driveTime: "約 3～4 小時",
+        highlight: "大觀峰眺望涅槃釋迦佛、阿蘇神社新建樓門、草千里浩瀚火山草甸。",
+        schedule: [
+          { time: "08:00～09:30", act: "大津出發開往阿蘇北外輪山的大觀峰展望台。" },
+          { time: "09:30～10:30", act: "漫步大觀峰稜線步道，全景俯瞰阿蘇五岳與巨大火山口盆地。" },
+          { time: "10:30～12:30", act: "前往阿蘇神社參拜，於充滿湧泉的門前町水基街道散步與享用午餐。" },
+          { time: "12:30～14:00", act: "開車直上阿蘇中岳，行駛火山景觀公路前往草千里之濱。" },
+          { time: "14:00～15:30", act: "草千里雙水池步道漫步、火山博物館周邊咖啡賞景。" },
+          { time: "15:30～17:00", act: "日落前返回熊本大津，整理明天換宿與北上移動的大型行李。" }
+        ],
+        decisions: {
+          eat: "午餐於阿蘇神社門前町吃赤牛丼（阿蘇あか牛）；晚餐大津商圈定食。",
+          park: "大觀峰、阿蘇神社、草千里皆設有完善專用停車場。",
+          delay: "山區起濃霧時優先放棄大觀峰，草千里若強風則縮短為室內咖啡館。",
+          notes: "中岳火山口是否開放需視當日火山瓦斯警戒濃度現場確認。"
+        }
+      },
+      {
+        day: 14,
+        date: "11/23 (一・國定假日)",
+        part: "part2",
+        title: "早出發直攻秋月城跡、小郡如意輪寺、入住吉野里",
+        stay: "HOTEL AZ 佐賀吉野ヶ里店（連住第 1 晚）",
+        driveTime: "約 3～4.5 小時",
+        highlight: "勤勞感謝之日！07:00 出發、09:30 前停妥秋月避塞車、青蛙寺如意輪寺。",
+        schedule: [
+          { time: "06:30～07:00", act: "退房離開大津（車輪必須於 07:00 開始轉動出發！）。" },
+          { time: "07:00～09:00", act: "經高速公路前往朝倉秋月方向，沿途隨時用 Google 導航監控路況。" },
+          { time: "09:00～09:30", act: "【關鍵抵達】搶在人潮湧現前停妥秋月公有停車場（09:30 前達標）。" },
+          { time: "09:30～11:30", act: "秋月城黑門紅葉隧道、長屋門與築前小京都老街漫步拍照。" },
+          { time: "11:30～12:30", act: "城下町提早午餐或離開秋月往小郡方向。" },
+          { time: "13:00～14:00", act: "參觀小郡如意輪寺（萬尊特色青蛙石雕與楓葉庭園）。" },
+          { time: "14:00～15:30", act: "開往吉野里，入住 HOTEL AZ 佐賀吉野里店，洗衣放鬆休息。" }
+        ],
+        decisions: {
+          eat: "秋月提早午餐；晚餐在吉野里周邊享用佐賀地雞或烏龍麵。",
+          park: "秋月停公有大停車場；如意輪寺依現場人員指揮停放。",
+          delay: "【重要停損】接近甘木時若導航估算抵達秋月超過 10:15，直接取消秋月改去如意輪寺！",
+          notes: "三連休最後一天，絕對不把車開進死胡同塞車。"
+        }
+      },
+      {
+        day: 15,
+        date: "11/24 (二)",
+        part: "part2",
+        title: "九年庵秋季限定公開、仁比山神社與佐賀休整日",
+        stay: "HOTEL AZ 佐賀吉野ヶ里店（連住第 2 晚，不退房）",
+        driveTime: "約 1～1.5 小時（輕鬆低強度）",
+        highlight: "每年僅公開 9 天之佐賀名勝「九年庵」、仁比山神社大楓樹、佐賀休整。",
+        schedule: [
+          { time: "07:15～08:00", act: "享用早餐後出發前往【舊ホテル神埼温泉跡地】臨時停車場。" },
+          { time: "08:00～09:30", act: "九年庵 08:00 正式開園入場，漫步欣賞數寄屋造別邸與長滿青苔的紅葉庭院。" },
+          { time: "09:30～10:30", act: "順路步行至相鄰的仁比山神社參拜，欣賞巨大紅葉神木與清流。" },
+          { time: "10:30～12:00", act: "返回佐賀方向，悠閒享用佐賀牛燒肉或在地早午餐。" },
+          { time: "12:30～14:30", act: "佐賀城本丸歷史館參觀（日式木造大殿）或市區咖啡館閱讀。" },
+          { time: "15:00 後", act: "返回 HOTEL AZ 洗衣、整理大件行李與明天福岡還車重要文件。" }
+        ],
+        decisions: {
+          eat: "午餐佐賀市區；晚餐回吉野里輕鬆吃，為明天退房還車儲備體力。",
+          park: "九年庵平日停舊神埼溫泉跡地（門前不可停車，收費約 ¥500）；接駁車僅假日行駛。",
+          delay: "午後佐賀城本丸可去可不去，以悠閒休整與洗衣為最高原則。",
+          notes: "九年庵 2026 秋季公開為 11/14～11/29，門票約 ¥1,000。"
+        }
+      },
+      {
+        day: 16,
+        date: "11/25 (三)",
+        part: "part2",
+        title: "Costco 小郡、先加油、15:00 飯店放行李、16:00 機場還車",
+        stay: "SAKURA HOTEL HAKATA（已確認，連住第 1 晚）",
+        driveTime: "約 2～2.5 小時（自駕最終日）",
+        highlight: "自駕圓滿收官！Costco 小郡採買、加油、15:00 飯店放行李、16:00 定時還車。",
+        schedule: [
+          { time: "08:45～09:30", act: "退房離開吉野里，前往 Costco Wholesale 小郡倉庫店。" },
+          { time: "10:00～11:45", act: "Costco 採買常溫伴手禮、藥妝與點心（不買大件冷藏食品）。" },
+          { time: "11:45～12:30", act: "Costco 熟食區簡單午餐，於後車廂將採買品妥善裝箱打包。" },
+          { time: "12:30～13:30", act: "開往福岡市區，為都市高速與平面紅綠燈保留充裕時間。" },
+          { time: "14:10～14:30", act: "【關鍵步驟 1】於博多/機場周邊指定加油站加滿油，保留收據並拍照。" },
+          { time: "14:30～14:50", act: "開車抵達博多站南的 SAKURA HOTEL HAKATA 飯店門口。" },
+          { time: "15:00～15:15", act: "【關鍵步驟 2】辦理 Check-in，將全車大行李與 Costco 戰利品搬進房間！" },
+          { time: "15:15～15:40", act: "【關鍵步驟 3】最晚 15:15 空車離開飯店，開往 NICONICO 福岡機場店。" },
+          { time: "15:40～16:00", act: "【準時還車】車輛外觀檢查、ETC 費用結算，16:00 順利完成還車手續！" },
+          { time: "16:15 後", act: "搭乘免費接駁車至福岡機場地鐵站，搭地鐵回博多，兩手空空慢遊博多商圈。" }
+        ],
+        decisions: {
+          eat: "中午在 Costco 快速解決；晚餐在博多享用博多牛腸鍋或水瀧雞肉鍋。",
+          park: "飯店門口一人卸行李一人顧車；還車點為 NICONICO 福岡機場店。",
+          delay: "15:15 是離開飯店的絕對死線！房內物品回頭再整理，不能延誤還車時間。",
+          notes: "先卸行李再還車，免去拖著全部家當搭接駁車與擠地鐵的痛苦！"
+        }
+      },
+      {
+        day: 17,
+        date: "11/26 (四)",
+        part: "part3",
+        title: "福岡市區恢復慢活日：博多、天神、渡邊通美食",
+        stay: "SAKURA HOTEL HAKATA（連住第 2 晚）",
+        driveTime: "0 小時（福岡地下鐵＋步行）",
+        highlight: "睡飽再出發、おにぎりごりちゃん飯糰早午餐、天神地下街購物、渡邊通拉麵。",
+        schedule: [
+          { time: "09:30～10:30", act: "睡到自然醒，飯店處理前幾天換洗衣物與輕裝整理。" },
+          { time: "11:00～12:00", act: "前往渡邊通品嚐名店「おにぎりごりちゃん 天神店」爆餡飯糰早午餐。" },
+          { time: "12:30～15:30", act: "博多車站商圈：AMU PLAZA、阪急百貨採買服飾與紀念品。" },
+          { time: "16:00～18:30", act: "天神地下街漫步、大名商圈潮流服飾與網美咖啡甜點。" },
+          { time: "19:00 後", act: "晚餐首選「らぁめん いちむじん 渡辺通店」濃厚豚骨拉麵，天神悠閒漫步回飯店。" }
+        ],
+        decisions: {
+          eat: "早午餐飯糰（排隊長就外帶）；晚餐いちむじん（或二郎系夢の一歩）。",
+          park: "市區全程搭乘地鐵，使用交通 IC 卡隨逼隨走。",
+          delay: "全日無硬性門票景點，疲勞時隨時回飯店睡午覺補眠。",
+          notes: "自駕 14 天結束後安排低強度市區日，大幅降低旅行倦怠感。"
+        }
+      },
+      {
+        day: 18,
+        date: "11/27 (五)",
+        part: "part3",
+        title: "太宰府完整版：BEAMS限定、天滿宮、石隧道與竈門神社",
+        stay: "SAKURA HOTEL HAKATA（連住第 3 晚）",
+        driveTime: "0 小時（西鐵電車＋まほろば號巴士）",
+        highlight: "太宰府表參道、隈研吾星巴克、BEAMS JAPAN、太宰府天滿宮、竈門神社紅葉。",
+        schedule: [
+          { time: "08:30～09:30", act: "搭地鐵至天神轉乘西鐵電車前往太宰府車站。" },
+          { time: "09:45～10:30", act: "太宰府表參道散步，10:00 開門直奔 BEAMS JAPAN 太宰府限定店。" },
+          { time: "10:30～12:15", act: "太宰府天滿宮本殿參拜（仮殿浮見堂）、撫摸御神牛、境內漫步。" },
+          { time: "12:15～13:00", act: "表參道享用現烤熱騰騰梅枝餅與在地烏龍麵午餐。" },
+          { time: "13:00～15:00", act: "穿過「お石トンネル」隧道前往寶滿宮竈門神社，欣賞現代社務所與紅葉。" },
+          { time: "15:00～16:30", act: "搭乘社區巴士「まほろば號」返回太宰府站，搭西鐵返回天神。" },
+          { time: "19:00 前", act: "晚餐朝聖「博多らーめん ShinShin 天神本店」，享用極細麵濃郁豚骨風味！" }
+        ],
+        decisions: {
+          eat: "中午吃梅枝餅小吃；晚餐排 ShinShin 本店（避開演唱會日才去擠）。",
+          park: "大眾運輸最順暢，太宰府往竈門神社可搭まほろば號巴士或計程車。",
+          delay: "若下雨可省略お石隧道步行段，直接搭車往返竈門神社。",
+          notes: "BEAMS JAPAN 營業時間為 10:00～17:00，限量聯名御守很搶手。"
+        }
+      },
+      {
+        day: 19,
+        date: "11/28 (六)",
+        part: "part3",
+        title: "不租車的糸島一日遊：JR筑肥線＋昭和巴士前往櫻井二見浦",
+        stay: "SAKURA HOTEL HAKATA（連住第 4 晚）",
+        driveTime: "0 小時（JR＋昭和巴士＋步行）",
+        highlight: "櫻井二見浦海上白色鳥居、夫婦岩海景、海岸景觀咖啡、海邊慢散步。",
+        schedule: [
+          { time: "08:15～09:10", act: "博多搭乘福岡地下鐵直通 JR 筑肥線前往「九大学研都市站」。" },
+          { time: "09:10～10:20", act: "【重要接駁】轉乘昭和巴士西の浦線前往「二見ヶ浦（夫婦岩前）」站。" },
+          { time: "10:20～11:30", act: "櫻井二見浦沙灘散步、白色鳥居與海上夫婦岩合影留念。" },
+          { time: "11:30～13:30", act: "挑選步行可達的海岸景觀餐廳（如 Palm Beach）享用海景午餐與咖啡。" },
+          { time: "13:30～14:30", act: "依巴士時刻表提早 10 分鐘到站牌候車（假日人潮多班距長）。" },
+          { time: "14:30～16:30", act: "搭巴士返回九大学研都市站，轉搭電車返回福岡博多市區。" },
+          { time: "17:00 後", act: "提早回飯店休息，充飽行動電源，備戰明日 YOASOBI 巨蛋演唱會！" }
+        ],
+        decisions: {
+          eat: "午餐選巴士站步行範圍內之海景餐廳；不冒險走太遠以免漏搭回程車。",
+          park: "不租車，使用交通 IC 卡搭乘 JR 與昭和巴士。",
+          delay: "若遇強風大雨，當機立斷取消糸島，改福岡市內三井 LaLaport 看巨型鋼彈。",
+          notes: "亦可於博多巴士總站評估直達二見浦的「West Coast Liner」高速巴士。"
+        }
+      },
+      {
+        day: 20,
+        date: "11/29 (日)",
+        part: "part3",
+        title: "天神換飯店寄行李 ＆ YOASOBI 福岡巨蛋演唱會日！",
+        stay: "東橫INN 福岡天神（官網已確認 #（已隱藏））",
+        driveTime: "0 小時（地鐵＋巨蛋接駁步行）",
+        highlight: "【旅行大高潮】SAKURA退房 ➔ 東橫INN寄放行李 ➔ 14:30 巨蛋進場 ➔ 17:00 開演！",
+        schedule: [
+          { time: "10:00～10:30", act: "SAKURA HOTEL 退房，搭地鐵至天神南/天神站。" },
+          { time: "10:30～11:30", act: "【關鍵手續】抵達東橫INN福岡天神寄放行李，務必登記「演唱會晚歸21:30辦理入住」！" },
+          { time: "11:30～13:30", act: "天神地下街提早吃午餐，便利商店備妥瓶裝水、喉糖、行動電源與門票 QR Code。" },
+          { time: "14:00～14:30", act: "搭地鐵至唐人町站，步行隨人潮前往 MIZUHO PayPay Dome FUKUOKA。" },
+          { time: "14:30～16:45", act: "【硬時程】14:30 開放入場，巨蛋內部週邊巡禮、就座準備。" },
+          { time: "17:00～20:00", act: "【YOASOBI 開演】沉浸於震撼動人的現場音樂饗宴！" },
+          { time: "20:00～21:30", act: "巨蛋散場數萬人潮，耐心步行回唐人町站搭地鐵返回天神。" },
+          { time: "21:30 後", act: "回到東橫INN福岡天神正式領房卡入房，天神周邊吃暖胃宵夜休息。" }
+        ],
+        decisions: {
+          eat: "演唱會前 12:00 務必吃飽飽；散場後天神吃碗溫暖烏龍麵或居酒屋收尾。",
+          park: "巨蛋周邊當日實施交通管制且無車位，嚴禁自駕搭計程車。",
+          delay: "演唱會為絕對核心，除行李寄放與巨蛋動線外，其他購物一律取消。",
+          notes: "門票、護照與身分證件前一晚先放入隨身小包，切勿遺忘在托運行李中。"
+        }
+      },
+      {
+        day: 21,
+        date: "11/30 (一)",
+        part: "part3",
+        title: "福岡退房，搭新幹線移動回熊本，享受 Dormy Inn 溫泉",
+        stay: "天然溫泉 六花の湯 ドーミーイン熊本（Booking已確認）",
+        driveTime: "0 小時（九州新幹線）",
+        highlight: "演唱會後恢復、福岡最後伴手禮採買、搭新幹線回熊本、Dormy Inn 溫泉拉麵。",
+        schedule: [
+          { time: "10:00～11:00", act: "東橫INN 天神悠閒享用早餐、退房，搭地鐵前往博多車站。" },
+          { time: "11:00～13:30", act: "博多車站名店街最後補齊福岡名產伴手禮、享用美味便當或午餐。" },
+          { time: "13:30～14:30", act: "搭乘九州新幹線返回熊本車站（車程約 40～50 分鐘）。" },
+          { time: "14:30～15:30", act: "搭熊本市電或計程車前往辛島町，抵達 Dormy Inn 熊本辦理入住。" },
+          { time: "15:30～18:00", act: "享受 Dormy Inn 天然溫泉大浴場、三溫暖與露天溫泉，消除連日疲勞。" },
+          { time: "18:30 後", act: "漫步辛島町與下通商圈，吃熊本最後一頓晚餐；回飯店享用免費夜鳴拉麵！" }
+        ],
+        decisions: {
+          eat: "午餐博多站；晚餐熊本市區；宵夜享用 Dormy Inn 免費拉麵（21:30～23:00）。",
+          park: "新幹線＋市電，辛島町位置便利，距離櫻町巴士總站步行僅 5 分鐘。",
+          delay: "回到熊本以休息為主，若體力透支可直接在飯店泡湯放空整個下午。",
+          notes: "預先整理好托運與手提行李，將液體與戰利品妥善封箱。"
+        }
+      },
+      {
+        day: 22,
+        date: "12/01 (二)",
+        part: "part3",
+        title: "熊本機場返回台南，圓滿結束 22 天九州之旅！",
+        stay: "溫暖的家",
+        driveTime: "0 小時（機場巴士直達）",
+        highlight: "Dormy Inn 豐盛日式早餐、直達熊本機場、虎航 IT795 返抵台南。",
+        schedule: [
+          { time: "07:30～08:30", act: "享用 Dormy Inn 著名特色早餐，完成最後隨身行李檢查。" },
+          { time: "08:30～09:15", act: "退房後步行至櫻町巴士總站（約 5 分鐘），搭乘機場專線巴士前往熊本機場。" },
+          { time: "09:30～11:30", act: "抵達熊本機場國際線航廈，辦理虎航報到托運、出境安檢與免稅店採買。" },
+          { time: "12:40～14:25", act: "【航班】搭乘虎航 IT795 熊本飛往台南機場，平安抵達台灣！" }
+        ],
+        decisions: {
+          eat: "享用 Dormy Inn 早餐；午餐於機場候機室或機上簡單享用。",
+          park: "不租車，搭乘市區巴士前往機場最穩妥。",
+          delay: "回程日絕對不排任何景點，時間完全以國際航班報到為準。",
+          notes: "IT795 目前時刻為 12:40 熊本起飛，出發前再次確認最新班機動態。"
+        }
+      }
+    ];
+
+    // 4. 初始化動態渲染
+    document.addEventListener("DOMContentLoaded", () => {
+      renderTimeline(timelineData);
+      renderMilestones();
+      renderHotels();
+      renderDayJumper();
+      loadChecklistState();
+    });
+
+    // 渲染每日行程卡片
+    function renderTimeline(data) {
+      const container = document.getElementById("timeline-list");
+      container.innerHTML = "";
+
+      data.forEach((dayItem) => {
+        const isDrive = dayItem.part === "part2";
+        const driveBadge = isDrive 
+          ? `<span class="badge-drive text-xs px-2.5 py-1 rounded-full font-semibold flex items-center gap-1">🚗 自駕：${dayItem.driveTime}</span>`
+          : `<span class="badge-transit text-xs px-2.5 py-1 rounded-full font-semibold flex items-center gap-1">🚆 大眾運輸：${dayItem.driveTime}</span>`;
+
+        let scheduleRows = dayItem.schedule.map(s => `
+          <tr class="border-b border-slate-100 hover:bg-slate-50/70 transition">
+            <td class="py-2.5 px-3 text-xs font-bold text-slate-700 whitespace-nowrap align-top w-28">${s.time}</td>
+            <td class="py-2.5 px-3 text-xs sm:text-sm text-slate-600 align-top">${s.act}</td>
+          </tr>
+        `).join("");
+
+        const card = document.createElement("div");
+        card.id = `day-${dayItem.day}`;
+        card.className = "timeline-card bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden transition-all duration-200 hover:shadow-md";
+        card.dataset.part = dayItem.part;
+        card.dataset.title = dayItem.title;
+        card.dataset.content = JSON.stringify(dayItem);
+
+        card.innerHTML = `
+          <!-- 卡片頭部 -->
+          <div class="p-4 sm:p-5 bg-gradient-to-r from-slate-50 to-white border-b border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div class="flex items-start sm:items-center space-x-3">
+              <div class="w-11 h-11 rounded-xl bg-brand-700 text-white flex flex-col items-center justify-center font-black shadow-sm flex-shrink-0">
+                <span class="text-[10px] uppercase tracking-tighter opacity-80 leading-none">DAY</span>
+                <span class="text-base leading-none mt-0.5">${dayItem.day}</span>
+              </div>
+              <div>
+                <div class="flex flex-wrap items-center gap-2">
+                  <span class="text-xs font-bold text-brand-700 bg-brand-50 px-2 py-0.5 rounded border border-brand-200">${dayItem.date}</span>
+                  ${driveBadge}
+                </div>
+                <h3 class="text-base sm:text-lg font-bold text-slate-900 mt-1">${dayItem.title}</h3>
+              </div>
+            </div>
+            <div class="flex items-center space-x-2 text-xs text-slate-500 self-start sm:self-auto bg-slate-100/70 px-3 py-1.5 rounded-lg border border-slate-200/80">
+              <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+              <span>宿：<strong class="text-slate-700">${dayItem.stay}</strong></span>
+            </div>
+          </div>
+
+          <!-- 重點提示列 -->
+          <div class="px-5 py-2.5 bg-brand-50/40 border-b border-brand-100/60 text-xs text-brand-900 flex items-center space-x-2">
+            <span class="w-1.5 h-1.5 rounded-full bg-brand-500 flex-shrink-0"></span>
+            <span class="font-medium">${dayItem.highlight}</span>
+          </div>
+
+          <!-- 詳細時間表 -->
+          <div class="p-4 sm:p-5 overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr class="text-[11px] font-bold text-slate-400 uppercase tracking-wider border-b border-slate-200 pb-1">
+                  <th class="px-3 pb-2 w-28">時間</th>
+                  <th class="px-3 pb-2">操作細節與核心要點</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${scheduleRows}
+              </tbody>
+            </table>
+          </div>
+
+          <!-- 今日決策盒子 (食事 / 停車 / 延誤備案) -->
+          <div class="p-4 bg-slate-50/70 border-t border-slate-200 text-xs grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+            <div class="bg-white p-2.5 rounded-xl border border-slate-200/80">
+              <span class="font-bold text-slate-800 block mb-0.5 text-[11px]">🍱 吃飯安排</span>
+              <p class="text-slate-600">${dayItem.decisions.eat}</p>
+            </div>
+            <div class="bg-white p-2.5 rounded-xl border border-slate-200/80">
+              <span class="font-bold text-slate-800 block mb-0.5 text-[11px]">🅿️ 停車／交通</span>
+              <p class="text-slate-600">${dayItem.decisions.park}</p>
+            </div>
+            <div class="bg-white p-2.5 rounded-xl border border-slate-200/80">
+              <span class="font-bold text-rose-700 block mb-0.5 text-[11px]">⚠️ 延誤時先刪</span>
+              <p class="text-slate-600">${dayItem.decisions.delay}</p>
+            </div>
+            <div class="bg-white p-2.5 rounded-xl border border-slate-200/80">
+              <span class="font-bold text-brand-700 block mb-0.5 text-[11px]">📌 特別提醒</span>
+              <p class="text-slate-600">${dayItem.decisions.notes}</p>
+            </div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    // 渲染硬時程清單
+    function renderMilestones() {
+      const container = document.getElementById("milestones-container");
+      container.innerHTML = "";
+
+      milestoneData.forEach(item => {
+        const row = document.createElement("div");
+        row.className = "py-4 flex items-start justify-between gap-4";
+        row.innerHTML = `
+          <div class="flex items-start space-x-3">
+            <input type="checkbox" id="check-${item.id}" onchange="toggleMilestone('${item.id}')" 
+              class="w-5 h-5 mt-0.5 rounded border-slate-300 text-brand-600 focus:ring-brand-500 cursor-pointer">
+            <div>
+              <div class="flex items-center space-x-2">
+                <span class="text-xs font-bold px-2 py-0.5 rounded bg-rose-100 text-rose-800 border border-rose-200">${item.time}</span>
+                <label for="check-${item.id}" class="text-sm font-bold text-slate-900 cursor-pointer milestone-label" id="label-${item.id}">${item.event}</label>
+              </div>
+              <p class="text-xs text-slate-500 mt-1 leading-relaxed">${item.desc}</p>
+            </div>
+          </div>
+          <button onclick="copyToClipboard('${item.event} - ${item.desc}')" class="text-slate-400 hover:text-slate-700 p-1.5 rounded-lg hover:bg-slate-100 transition flex-shrink-0" title="複製事件內容">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+          </button>
+        `;
+        container.appendChild(row);
+      });
+    }
+
+    // 渲染住宿卡片
+    function renderHotels() {
+      const grid = document.getElementById("hotels-grid");
+      grid.innerHTML = "";
+
+      hotelData.forEach((h, index) => {
+        const card = document.createElement("div");
+        card.className = "bg-slate-50 border border-slate-200 rounded-2xl p-4.5 hover:shadow-md transition relative flex flex-col justify-between";
+        card.innerHTML = `
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-bold text-brand-800 bg-brand-100 px-2 py-0.5 rounded-md border border-brand-200">${h.date} (${h.nights})</span>
+              <span class="text-xs font-bold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-md">${h.status}</span>
+            </div>
+            <h4 class="font-extrabold text-slate-900 text-base leading-tight">${h.name}</h4>
+            <p class="text-xs text-slate-500 mb-3">${h.jpName}</p>
+            
+            <div class="space-y-1.5 text-xs text-slate-600 bg-white p-3 rounded-xl border border-slate-200/80 mb-3">
+              <div class="flex justify-between">
+                <span class="text-slate-400">訂購管道：</span>
+                <span class="font-semibold text-slate-800">${h.platform}</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-slate-400">餐食方案：</span>
+                <span class="font-medium text-slate-700">${h.meal}</span>
+              </div>
+              <div class="pt-1.5 border-t border-slate-100 text-slate-500 text-[11px] leading-relaxed">
+                ${h.notes}
+              </div>
+            </div>
+          </div>
+
+          <div class="flex items-center justify-between pt-2 border-t border-slate-200/70 text-xs">
+            <span class="text-slate-400 truncate max-w-[200px]" title="${h.address}">📍 ${h.address}</span>
+            <div class="flex items-center space-x-1 flex-shrink-0">
+              <button onclick="copyToClipboard('${h.name}')" class="px-2 py-1 bg-slate-200 text-slate-700 rounded-md hover:bg-slate-300 transition text-[11px]">複製店名</button>
+              <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(h.name + ' ' + h.address)}" target="_blank" rel="noopener noreferrer" class="px-2 py-1 bg-brand-600 text-white rounded-md hover:bg-brand-700 transition text-[11px]">導航地圖</a>
+            </div>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    // 渲染橫向跳轉按鈕
+    function renderDayJumper() {
+      const container = document.getElementById("quick-day-jumper");
+      container.innerHTML = "";
+      for (let i = 1; i <= 22; i++) {
+        const btn = document.createElement("button");
+        btn.className = "flex-shrink-0 px-2.5 py-1 rounded bg-slate-100 text-slate-700 font-bold hover:bg-brand-100 hover:text-brand-800 transition";
+        btn.innerText = `D${i}`;
+        btn.onclick = () => {
+          const el = document.getElementById(`day-${i}`);
+          if (el) {
+            el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            el.classList.add('ring-2', 'ring-brand-500');
+            setTimeout(() => el.classList.remove('ring-2', 'ring-brand-500'), 1500);
+          }
+        };
+        container.appendChild(btn);
+      }
+    }
+
+    // 分頁籤切換
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+      const activeContent = document.getElementById(`tab-${tabId}`);
+      if (activeContent) activeContent.classList.remove('hidden');
+
+      // 更新電腦版 Nav
+      document.querySelectorAll('.nav-tab').forEach(btn => {
+        if (btn.dataset.tab === tabId) {
+          btn.className = "nav-tab px-3.5 py-2 rounded-lg text-sm font-semibold transition text-brand-700 bg-brand-50";
+        } else {
+          btn.className = "nav-tab px-3.5 py-2 rounded-lg text-sm font-medium transition text-slate-600 hover:text-slate-900 hover:bg-slate-100";
+        }
+      });
+
+      // 更新手機版 Nav
+      document.querySelectorAll('.mobile-nav-btn').forEach(btn => {
+        if (btn.dataset.tab === tabId) {
+          btn.classList.add('text-brand-700');
+          btn.classList.remove('text-slate-500');
+        } else {
+          btn.classList.remove('text-brand-700');
+          btn.classList.add('text-slate-500');
+        }
+      });
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // 行程過濾（全部 / 第一段 / 第二段 / 第三段）
+    function filterTimeline(part) {
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        if (btn.dataset.filter === part) {
+          btn.classList.add('bg-white', 'text-slate-800', 'shadow-sm', 'font-semibold');
+          btn.classList.remove('text-slate-600', 'font-medium');
+        } else {
+          btn.classList.remove('bg-white', 'text-slate-800', 'shadow-sm', 'font-semibold');
+          btn.classList.add('text-slate-600', 'font-medium');
+        }
+      });
+
+      const cards = document.querySelectorAll('.timeline-card');
+      cards.forEach(card => {
+        if (part === 'all' || card.dataset.part === part) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    // 全站關鍵字搜尋
+    function handleSearch(keyword) {
+      const term = keyword.trim().toLowerCase();
+      const cards = document.querySelectorAll('.timeline-card');
+      
+      cards.forEach(card => {
+        const text = card.dataset.content.toLowerCase();
+        if (!term || text.includes(term)) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      // 若在其他 tab，自動跳回 timeline 便於查看搜尋結果
+      if (term) {
+        switchTab('timeline');
+      }
+    }
+
+    // 硬時程互動打勾存取 localStorage
+    function toggleMilestone(id) {
+      const checkbox = document.getElementById(`check-${id}`);
+      const label = document.getElementById(`label-${id}`);
+      let saved = JSON.parse(localStorage.getItem('kyushu_v10_milestones') || '{}');
+      saved[id] = checkbox.checked;
+      localStorage.setItem('kyushu_v10_milestones', JSON.stringify(saved));
+      
+      if (checkbox.checked) {
+        label.classList.add('line-through', 'text-slate-400');
+      } else {
+        label.classList.remove('line-through', 'text-slate-400');
+      }
+      updateMilestoneCounter();
+    }
+
+    function loadChecklistState() {
+      const saved = JSON.parse(localStorage.getItem('kyushu_v10_milestones') || '{}');
+      milestoneData.forEach(item => {
+        const checkbox = document.getElementById(`check-${item.id}`);
+        const label = document.getElementById(`label-${item.id}`);
+        if (checkbox && saved[item.id]) {
+          checkbox.checked = true;
+          if (label) label.classList.add('line-through', 'text-slate-400');
+        }
+      });
+      updateMilestoneCounter();
+    }
+
+    function updateMilestoneCounter() {
+      const saved = JSON.parse(localStorage.getItem('kyushu_v10_milestones') || '{}');
+      let count = milestoneData.filter(item => saved[item.id]).length;
+      const counterEl = document.getElementById('milestone-counter');
+      if (counterEl) {
+        counterEl.innerText = `${count} / ${milestoneData.length}`;
+      }
+    }
+
+    // 複製到剪貼簿功能（無 alert，相容 iframe）
+    function copyToClipboard(text) {
+      const tempInput = document.createElement("textarea");
+      tempInput.value = text;
+      tempInput.style.position = "fixed";
+      tempInput.style.opacity = "0";
+      document.body.appendChild(tempInput);
+      tempInput.select();
+      
+      try {
+        document.execCommand("copy");
+        showToast(`已複製：「${text.slice(0, 20)}${text.length > 20 ? '...' : ''}」`);
+      } catch (err) {
+        console.error("複製失敗", err);
+      }
+      document.body.removeChild(tempInput);
+    }
+
+    // Toast 顯示通知
+    function showToast(msg) {
+      const toast = document.getElementById("toast");
+      const toastText = document.getElementById("toast-text");
+      toastText.innerText = msg;
+      toast.classList.remove("opacity-0", "translate-y-2", "pointer-events-none");
+      toast.classList.add("opacity-100", "translate-y-0");
+
+      setTimeout(() => {
+        toast.classList.remove("opacity-100", "translate-y-0");
+        toast.classList.add("opacity-0", "translate-y-2", "pointer-events-none");
+      }, 2500);
+    }
+  </script>
+</body>
+</html>
